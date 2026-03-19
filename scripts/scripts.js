@@ -11,7 +11,7 @@
       hero: {
         chip1: 'Cuisine française',
         chip2: 'Gauthier, Casablanca',
-        chip3: 'Horaires à confirmer',
+        chip3: 'Réservation conseillée',
         title: 'Brasserie lumineuse, plats signature et service attentif.',
         lead: 'Une adresse parisienne au cœur de Casablanca : cuisine de saison, produits frais, ambiance cosy et soignée.',
         cta: {
@@ -59,15 +59,16 @@
         trip: 'Tripadvisor · 44 avis',
         google: 'Google Maps · quartier Gauthier',
         press: '“Brasserie française lumineuse et généreuse.” — Presse locale',
-        cta: 'Laissez votre avis pour aider la communauté.'
+        cta: 'Laissez votre avis pour aider la communauté.',
+        ctaMap: 'Déposer un avis sur Google Maps'
       },
       contact: {
         chip: 'Contact',
         title: 'Réserver ou passer commande',
-        lead: 'Quartier Gauthier, Casablanca. Horaires provisoires, à confirmer.',
+        lead: 'Quartier Gauthier, Casablanca. Service midi (lun–ven) et soir (lun–sam).',
         address: { label: 'Adresse', value: '3 Rue Abou Adil Allaf, Casablanca 20000' },
         map: 'Ouvrir dans Google Maps',
-        hours: '12h00–15h00 & 18h00–01h00 (lun–sam) · À confirmer',
+        hours: '12h00–15h00 (lun–ven) · 18h00–01h00 (lun–sam)',
         book: 'Réservation conseillée en soirée.',
         whatsapp: 'WhatsApp',
         call: 'Appeler',
@@ -87,7 +88,7 @@
       hero: {
         chip1: 'French cuisine',
         chip2: 'Gauthier, Casablanca',
-        chip3: 'Hours to be confirmed',
+        chip3: 'Booking recommended',
         title: 'Bright brasserie, signature plates and attentive service.',
         lead: 'A Parisian address in Casablanca: seasonal cooking, fresh produce, cosy atmosphere.',
         cta: {
@@ -135,15 +136,16 @@
         trip: 'Tripadvisor · 44 reviews',
         google: 'Google Maps · Gauthier area',
         press: '“Bright and generous French brasserie.” — Local press',
-        cta: 'Share your review to help others.'
+        cta: 'Share your review to help others.',
+        ctaMap: 'Review on Google Maps'
       },
       contact: {
         chip: 'Contact',
         title: 'Book or order',
-        lead: 'Gauthier district, Casablanca. Provisional hours.',
+        lead: 'Gauthier district, Casablanca. Lunch (Mon–Fri) and dinner (Mon–Sat).',
         address: { label: 'Address', value: '3 Rue Abou Adil Allaf, Casablanca 20000' },
         map: 'Open in Google Maps',
-        hours: '12:00–15:00 & 18:00–01:00 (Mon–Sat) · To confirm',
+        hours: '12:00–15:00 (Mon–Fri) · 18:00–01:00 (Mon–Sat)',
         book: 'Booking recommended for dinner.',
         whatsapp: 'WhatsApp',
         call: 'Call',
@@ -163,7 +165,7 @@
       hero: {
         chip1: 'مطبخ فرنسي',
         chip2: 'غوتييه، الدار البيضاء',
-        chip3: 'المواعيد قيد التأكيد',
+        chip3: 'يُنصح بالحجز',
         title: 'براسيري مضيئة، أطباق مميزة وخدمة يقظة.',
         lead: 'عنوان بلمسة باريسية في الدار البيضاء: طبخ موسمي، منتجات طازجة وأجواء دافئة.',
         cta: {
@@ -211,15 +213,16 @@
         trip: 'تريب أدفايزر · 44 تقييمًا',
         google: 'خرائط جوجل · حي غوتييه',
         press: '"براسيري فرنسية مضيئة وسخية." — صحافة محلية',
-        cta: 'شارك رأيك لمساعدة الآخرين.'
+        cta: 'شارك رأيك لمساعدة الآخرين.',
+        ctaMap: 'اكتب تقييماً على خرائط جوجل'
       },
       contact: {
         chip: 'اتصال',
         title: 'احجز أو اطلب',
-        lead: 'حي غوتييه، الدار البيضاء. مواعيد مؤقتة.',
+        lead: 'حي غوتييه، الدار البيضاء. غداء (الإثنين–الجمعة) وعشاء (الإثنين–السبت).',
         address: { label: 'العنوان', value: '3 زنقة أبو عادل العلف، الدار البيضاء 20000' },
         map: 'افتح في خرائط جوجل',
-        hours: '12:00–15:00 و 18:00–01:00 (الإثنين–السبت) · قيد التأكيد',
+        hours: '12:00–15:00 (الإثنين–الجمعة) · 18:00–01:00 (الإثنين–السبت)',
         book: 'يُنصح بالحجز مساءً.',
         whatsapp: 'واتساب',
         call: 'اتصال',
@@ -388,6 +391,7 @@
 
   const qs = (sel) => document.querySelector(sel);
   const qsa = (sel) => Array.from(document.querySelectorAll(sel));
+  const heroSelector = '.hero-card img';
   let currentLang = 'fr';
 
   function setLanguage(lang) {
@@ -395,6 +399,7 @@
     currentLang = lang;
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dataset.lang = lang;
     qsa('.lang-pill').forEach((btn) => btn.classList.toggle('is-active', btn.dataset.lang === lang));
     applyTranslations();
     renderMenu();
@@ -435,10 +440,23 @@
     if (twDesc) twDesc.setAttribute('content', data.description);
   }
 
+  function optimizeImages() {
+    qsa('img').forEach((img) => {
+      if (!img.hasAttribute('decoding')) img.decoding = 'async';
+      if (!img.hasAttribute('loading')) img.loading = 'lazy';
+    });
+    const heroImg = qs(heroSelector);
+    if (heroImg) {
+      heroImg.loading = 'eager';
+      heroImg.fetchPriority = 'high';
+    }
+  }
+
   function renderMenu() {
     const container = qs('#menu-grid');
     if (!container) return;
     container.innerHTML = '';
+    const frag = document.createDocumentFragment();
     (menuData[currentLang] || []).forEach((category) => {
       const card = document.createElement('article');
       card.className = 'menu-card';
@@ -457,8 +475,9 @@
         list.appendChild(row);
       });
       card.appendChild(list);
-      container.appendChild(card);
+      frag.appendChild(card);
     });
+    container.appendChild(frag);
   }
 
   function setupNav() {
@@ -468,6 +487,13 @@
     const links = qsa('#mobile-drawer a');
     const focusableSelector = 'a, button';
     let trapHandler;
+    const setExpanded = (isOpen) => {
+      toggle?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggle?.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+      drawer?.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      overlay?.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    };
+    setExpanded(false);
 
     const close = () => {
       drawer?.classList.remove('is-open');
@@ -475,12 +501,14 @@
       document.body.classList.remove('overflow-hidden');
       document.body.classList.remove('menu-open');
       if (trapHandler) document.removeEventListener('keydown', trapHandler);
+      setExpanded(false);
     };
     const open = () => {
       drawer?.classList.add('is-open');
       overlay?.classList.add('is-open');
       document.body.classList.add('overflow-hidden');
       document.body.classList.add('menu-open');
+      setExpanded(true);
       const focusables = drawer ? Array.from(drawer.querySelectorAll(focusableSelector)).filter((el) => !el.disabled) : [];
       const first = focusables[0];
       const last = focusables[focusables.length - 1];
@@ -502,6 +530,12 @@
     toggle?.addEventListener('click', () => {
       if (drawer?.classList.contains('is-open')) close();
       else open();
+    });
+    toggle?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle.click();
+      }
     });
     overlay?.addEventListener('click', close);
     links.forEach((link) => link.addEventListener('click', close));
@@ -532,15 +566,30 @@
     const img = qs('#lightbox-img');
     const caption = qs('#lightbox-caption');
     const closeBtn = qs('.lightbox-close');
-    const close = () => lightbox?.classList.remove('is-open');
+    let lastTrigger = null;
+    const close = () => {
+      lightbox?.classList.remove('is-open');
+      if (lastTrigger) lastTrigger.focus();
+    };
 
     qsa('[data-lightbox]').forEach((thumb) => {
-      thumb.addEventListener('click', () => {
+      thumb.setAttribute('role', 'button');
+      thumb.setAttribute('tabindex', '0');
+      thumb.setAttribute('aria-label', thumb.getAttribute('alt') ? `Agrandir ${thumb.getAttribute('alt')}` : 'Agrandir l’image');
+      const openLightbox = () => {
         if (!lightbox || !img) return;
+        lastTrigger = thumb;
         img.src = thumb.getAttribute('src');
         img.alt = thumb.getAttribute('alt') || '';
         if (caption) caption.textContent = thumb.getAttribute('alt') || '';
         lightbox.classList.add('is-open');
+      };
+      thumb.addEventListener('click', openLightbox);
+      thumb.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox();
+        }
       });
     });
 
@@ -554,6 +603,7 @@
   }
 
   function init() {
+    optimizeImages();
     setupNav();
     setupHeaderCondense();
     setupLangSwitch();

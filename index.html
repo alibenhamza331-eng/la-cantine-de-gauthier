@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="meta-title">La Cantine de Gauthier | Brasserie française à Casablanca</title>
   <meta id="meta-description" name="description" content="La Cantine de Gauthier, cuisine française au cœur de Casablanca Gauthier : brasserie lumineuse, plats signature et service attentif." />
+  <meta name="robots" content="index,follow">
   <meta name="keywords" content="La Cantine de Gauthier, restaurant français Casablanca, brasserie Gauthier, cuisine française Maroc">
   <link rel="icon" type="image/png" href="assets/images/logo-icon.png">
   <link rel="canonical" href="https://lacantinedegauthier.com/">
@@ -15,13 +16,18 @@
   <meta property="og:title" id="og-title" content="La Cantine de Gauthier | Brasserie française à Casablanca">
   <meta property="og:description" id="og-description" content="Carte française lumineuse, service attentif, adresse iconique dans le quartier Gauthier.">
   <meta property="og:image" content="assets/images/menu2.png">
+  <meta property="og:url" content="https://lacantinedegauthier.com/">
+  <meta property="og:site_name" content="La Cantine de Gauthier">
   <meta property="og:locale" content="fr_FR">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" id="twitter-title" content="La Cantine de Gauthier | Brasserie française à Casablanca">
   <meta name="twitter:description" id="twitter-description" content="Carte française lumineuse, service attentif, adresse iconique dans le quartier Gauthier.">
+  <meta name="twitter:image" content="assets/images/menu2.png">
   <meta name="theme-color" content="#ffffff">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preload" as="image" href="assets/images/plat2.png" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <script>
     tailwind = {};
@@ -122,11 +128,11 @@
               <a class="btn-primary" href="https://wa.me/212664070965" target="_blank" rel="noreferrer" data-i18n="cta.whatsapp">WhatsApp</a>
             </div>
             <div class="lang-switch" aria-label="Changer de langue">
-              <button class="lang-pill is-active" data-lang="fr">FR</button>
-              <button class="lang-pill" data-lang="en">EN</button>
-              <button class="lang-pill" data-lang="ar">ع</button>
+              <button type="button" class="lang-pill is-active" data-lang="fr">FR</button>
+              <button type="button" class="lang-pill" data-lang="en">EN</button>
+              <button type="button" class="lang-pill" data-lang="ar">ع</button>
             </div>
-            <button id="mobile-toggle" class="nav-toggle md:hidden" aria-label="Ouvrir le menu">
+            <button type="button" id="mobile-toggle" class="nav-toggle md:hidden" aria-label="Ouvrir le menu">
               <span></span><span></span><span></span>
             </button>
           </div>
@@ -199,7 +205,7 @@
 
           <div class="grid gap-4 sm:grid-cols-[1.1fr_0.9fr]">
             <figure class="hero-card sm:row-span-2">
-              <img src="assets/images/plat2.png" alt="Plat signature de La Cantine de Gauthier" class="hero-img" loading="lazy">
+              <img src="assets/images/plat2.png" alt="Plat signature de La Cantine de Gauthier" class="hero-img" loading="eager" fetchpriority="high">
               <figcaption class="hero-caption" data-i18n="hero.caption1">Plat signature, dressage soigné et cuisson minute.</figcaption>
             </figure>
             <figure class="hero-card">
@@ -313,14 +319,20 @@
             <p class="text-xl font-semibold text-ink" data-i18n="reviews.press">“Brasserie française lumineuse et généreuse.” — Presse locale</p>
           </div>
         </div>
-        <p class="mt-4 text-sm text-slate-600" data-i18n="reviews.cta">Laissez votre avis pour aider la communauté.</p>
+        <div class="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-700">
+          <span data-i18n="reviews.cta">Laissez votre avis pour aider la communauté.</span>
+          <a class="inline-flex items-center gap-2 font-semibold text-amber-700 hover:underline" href="https://www.google.com/maps/search/?api=1&query=La%20Cantine%20de%20Gauthier%20Casablanca" target="_blank" rel="noreferrer">
+            <img src="assets/svg/google-maps.svg" alt="" class="h-4 w-4" loading="lazy">
+            <span data-i18n="reviews.ctaMap">Déposer un avis sur Google Maps</span>
+          </a>
+        </div>
       </section>
 
       <section id="contact" class="section" aria-labelledby="contact-title">
         <div class="section-header">
           <span class="section-chip" data-i18n="contact.chip">Contact</span>
           <h2 id="contact-title" class="section-title" data-i18n="contact.title">Réserver ou passer commande</h2>
-          <p class="section-subtitle" data-i18n="contact.lead">Quartier Gauthier, Casablanca. Horaires provisoires, à confirmer.</p>
+          <p class="section-subtitle" data-i18n="contact.lead">Quartier Gauthier, Casablanca. Service midi (lun–ven) et soir (lun–sam).</p>
         </div>
         <div class="grid gap-6 md:grid-cols-[1.2fr_0.8fr]">
           <div class="space-y-4">
@@ -338,7 +350,7 @@
               <div class="space-y-2">
                 <div class="flex items-center gap-2">
                   <span class="dot"></span>
-                  <p class="font-semibold text-ink" data-i18n="contact.hours">12h00–15h00 & 18h00–01h00 (lun–sam) · À confirmer</p>
+                  <p class="font-semibold text-ink" data-i18n="contact.hours">12h00–15h00 (lun–ven) · 18h00–01h00 (lun–sam)</p>
                 </div>
                 <p class="text-sm text-slate-600" data-i18n="contact.book">Réservation conseillée en soirée.</p>
               </div>
@@ -351,21 +363,19 @@
               </div>
             </div>
           </div>
-          <div class="contact-card space-y-3">
-            <p class="text-sm uppercase tracking-[0.18em] text-amber-600" data-i18n="contact.follow">Suivez-nous</p>
-            <div class="flex flex-wrap gap-3">
+          <div class="contact-card social-card">
+            <p class="text-sm uppercase tracking-[0.18em] text-amber-600" data-i18n="contact.follow">Suivez-nous :</p>
+            <div class="flex flex-col items-start gap-2 w-full">
               <a class="social-link" href="https://www.instagram.com/lacantinedegauthier/" target="_blank" rel="noreferrer">
-                <img src="assets/svg/instagram.svg" alt="Instagram" class="h-5 w-5">
+                <img src="assets/svg/instagram.svg" alt="Instagram" class="h-5 w-5" loading="lazy">
                 <span>Instagram</span>
               </a>
               <a class="social-link" href="https://www.facebook.com/lacantinedegauthier/" target="_blank" rel="noreferrer">
-                <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true">
-                  <path fill="currentColor" d="M13.3 8.5V6.9c0-.7.5-1.1 1.2-1.1h1.5V3h-2.1C11.2 3 10 4.3 10 6.7v1.8H8v2.6h2v7h3v-7h2.1l.3-2.6h-2.4z"></path>
-                </svg>
+                <img src="assets/svg/facebook.svg" alt="Facebook" class="h-5 w-5" loading="lazy">
                 <span>Facebook</span>
               </a>
               <a class="social-link" href="https://wa.me/212664070965" target="_blank" rel="noreferrer">
-                <img src="assets/svg/whatsapp.svg" alt="WhatsApp" class="h-5 w-5">
+                <img src="assets/svg/whatsapp.svg" alt="WhatsApp" class="h-5 w-5" loading="lazy">
                 <span>WhatsApp</span>
               </a>
             </div>
@@ -395,7 +405,7 @@
     </div>
 
     <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Agrandir l'image">
-      <button class="lightbox-close" aria-label="Fermer">X</button>
+      <button type="button" class="lightbox-close" aria-label="Fermer">X</button>
       <img id="lightbox-img" src="" alt="" loading="lazy">
       <p id="lightbox-caption" class="mt-2 text-sm text-slate-200"></p>
     </div>
