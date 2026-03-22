@@ -398,13 +398,12 @@
     if (!i18n[lang]) lang = 'fr';
     currentLang = lang;
     document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = 'ltr';
     document.documentElement.dataset.lang = lang;
     qsa('.lang-pill').forEach((btn) => btn.classList.toggle('is-active', btn.dataset.lang === lang));
     applyTranslations();
     renderMenu();
     updateMeta();
-    requestAnimationFrame(resetHorizontalScroll);
   }
 
   function applyTranslations() {
@@ -439,12 +438,6 @@
     if (ogDesc) ogDesc.setAttribute('content', data.description);
     if (twTitle) twTitle.setAttribute('content', data.title);
     if (twDesc) twDesc.setAttribute('content', data.description);
-  }
-
-  function resetHorizontalScroll() {
-    const scroller = document.scrollingElement || document.documentElement;
-    if (!scroller) return;
-    if (scroller.scrollLeft !== 0) scroller.scrollLeft = 0;
   }
 
   function optimizeImages() {

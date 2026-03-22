@@ -58,18 +58,20 @@ main {
 }
 
 .skip-link {
-  position: absolute;
-  left: -999px;
-  top: 0;
+  position: fixed;
+  top: 0.75rem;
+  inset-inline-start: 0.75rem;
   background: var(--accent);
   color: #fff;
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
+  transform: translateY(-180%);
+  transition: transform 160ms ease;
   z-index: 1000;
 }
 
 .skip-link:focus {
-  left: 1rem;
+  transform: translateY(0);
 }
 
 .header-glass {
@@ -220,14 +222,14 @@ main {
   transform: translateX(0);
 }
 
-[dir="rtl"] .mobile-drawer {
+html[data-lang="ar"] .mobile-drawer {
   left: auto;
   right: 0;
   transform: translateX(calc(100% + 1px));
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.12);
 }
 
-[dir="rtl"] .mobile-drawer.is-open {
+html[data-lang="ar"] .mobile-drawer.is-open {
   transform: translateX(0);
 }
 
@@ -677,33 +679,34 @@ main {
   }
 }
 
-[dir="rtl"] body {
+html[data-lang="ar"] body {
+  direction: rtl;
   text-align: right;
 }
 
-[dir="rtl"] .nav-link,
-[dir="rtl"] .section-subtitle,
-[dir="rtl"] .section-title {
+html[data-lang="ar"] .nav-link,
+html[data-lang="ar"] .section-subtitle,
+html[data-lang="ar"] .section-title {
   text-align: right;
 }
 
-[dir="rtl"] .menu-item {
+html[data-lang="ar"] .menu-item {
   flex-direction: row-reverse;
 }
 
-[dir="rtl"] .menu-item > span {
+html[data-lang="ar"] .menu-item > span {
   text-align: left;
 }
 
-[dir="rtl"] .contact-card,
-[dir="rtl"] .feature-card,
-[dir="rtl"] .point-card,
-[dir="rtl"] .stat-card,
-[dir="rtl"] .badge-card {
+html[data-lang="ar"] .contact-card,
+html[data-lang="ar"] .feature-card,
+html[data-lang="ar"] .point-card,
+html[data-lang="ar"] .stat-card,
+html[data-lang="ar"] .badge-card {
   text-align: right;
 }
 
-[dir="rtl"] .cta-bar {
+html[data-lang="ar"] .cta-bar {
   margin-left: 1rem;
   margin-right: auto;
 }
