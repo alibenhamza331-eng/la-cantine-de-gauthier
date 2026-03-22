@@ -68,7 +68,7 @@
         lead: 'Quartier Gauthier, Casablanca. Service midi (lun–ven) et soir (lun–sam).',
         address: { label: 'Adresse', value: '3 Rue Abou Adil Allaf, Casablanca 20000' },
         map: 'Ouvrir dans Google Maps',
-        hours: '12h00–15h00 (lun–ven) · 18h00–01h00 (lun–sam)',
+        hours: 'Lundi à Vendredi : 12h00 - 15h00\nLundi à Samedi : 18h00 - 01h00\nDimanche : fermé',
         book: 'Réservation conseillée en soirée.',
         whatsapp: 'WhatsApp',
         call: 'Appeler',
@@ -145,7 +145,7 @@
         lead: 'Gauthier district, Casablanca. Lunch (Mon–Fri) and dinner (Mon–Sat).',
         address: { label: 'Address', value: '3 Rue Abou Adil Allaf, Casablanca 20000' },
         map: 'Open in Google Maps',
-        hours: '12:00–15:00 (Mon–Fri) · 18:00–01:00 (Mon–Sat)',
+        hours: 'Monday to Friday: 12:00 - 15:00\nMonday to Saturday: 18:00 - 01:00\nSunday: closed',
         book: 'Booking recommended for dinner.',
         whatsapp: 'WhatsApp',
         call: 'Call',
@@ -222,7 +222,7 @@
         lead: 'حي غوتييه، الدار البيضاء. غداء (الإثنين–الجمعة) وعشاء (الإثنين–السبت).',
         address: { label: 'العنوان', value: '3 زنقة أبو عادل العلف، الدار البيضاء 20000' },
         map: 'افتح في خرائط جوجل',
-        hours: '12:00–15:00 (الإثنين–الجمعة) · 18:00–01:00 (الإثنين–السبت)',
+        hours: 'الإثنين إلى الجمعة: 12:00 - 15:00\nالإثنين إلى السبت: 18:00 - 01:00\nالأحد: مغلق',
         book: 'يُنصح بالحجز مساءً.',
         whatsapp: 'واتساب',
         call: 'اتصال',
@@ -394,16 +394,48 @@
   const heroSelector = '.hero-card img';
   let currentLang = 'fr';
 
+  function lockDrawerTransitionDuringLangSwitch() {
+    const root = document.documentElement;
+    root.classList.add('is-switching-lang');
+    return () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          root.classList.remove('is-switching-lang');
+        });
+      });
+    };
+  }
+
+  function forceCloseMobileMenu() {
+    const toggle = qs('#mobile-toggle');
+    const drawer = qs('#mobile-drawer');
+    const overlay = qs('#mobile-overlay');
+    drawer?.classList.remove('is-open');
+    overlay?.classList.remove('is-open');
+    document.body.classList.remove('overflow-hidden');
+    document.body.classList.remove('menu-open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.setAttribute('aria-label', 'Ouvrir le menu');
+    drawer?.setAttribute('aria-hidden', 'true');
+    overlay?.setAttribute('aria-hidden', 'true');
+  }
+
   function setLanguage(lang) {
     if (!i18n[lang]) lang = 'fr';
-    currentLang = lang;
-    document.documentElement.lang = lang;
-    document.documentElement.dir = 'ltr';
-    document.documentElement.dataset.lang = lang;
-    qsa('.lang-pill').forEach((btn) => btn.classList.toggle('is-active', btn.dataset.lang === lang));
-    applyTranslations();
-    renderMenu();
-    updateMeta();
+    const releaseDrawerLock = lockDrawerTransitionDuringLangSwitch();
+    forceCloseMobileMenu();
+    try {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = 'ltr';
+      document.documentElement.dataset.lang = lang;
+      qsa('.lang-pill').forEach((btn) => btn.classList.toggle('is-active', btn.dataset.lang === lang));
+      applyTranslations();
+      renderMenu();
+      updateMeta();
+    } finally {
+      releaseDrawerLock();
+    }
   }
 
   function applyTranslations() {

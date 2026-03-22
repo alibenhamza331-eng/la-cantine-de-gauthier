@@ -35,9 +35,42 @@ body {
   line-height: 1.6;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle, rgba(245, 197, 66, 0.28) 1.2px, transparent 1.9px),
+    radial-gradient(circle, rgba(15, 23, 42, 0.14) 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(245, 197, 66, 0.18) 0.9px, transparent 1.5px);
+  background-size: 130px 130px, 170px 170px, 210px 210px;
+  background-position: 0 0, 24px 44px, 60px 10px;
+  opacity: 0.2;
+  animation: float-particles 28s linear infinite alternate;
+}
+
+@keyframes float-particles {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-18px, -10px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+}
+
 .site-wrapper {
   width: 100%;
   overflow-x: clip;
+  position: relative;
+  z-index: 1;
 }
 
 img,
@@ -222,6 +255,11 @@ main {
   transform: translateX(0);
 }
 
+html.is-switching-lang .mobile-drawer,
+html.is-switching-lang .mobile-overlay {
+  transition: none !important;
+}
+
 html[data-lang="ar"] .mobile-drawer {
   left: auto;
   right: 0;
@@ -312,11 +350,17 @@ html[data-lang="ar"] .mobile-drawer.is-open {
 .section-subtitle,
 .menu-item p,
 .contact-card p,
+.hours-text,
 .btn-primary,
 .btn-secondary,
 .btn-ghost,
 .quick-link {
   overflow-wrap: anywhere;
+}
+
+.hours-text {
+  line-height: 1.55;
+  white-space: pre-line;
 }
 
 .point-card,
