@@ -404,6 +404,7 @@
     applyTranslations();
     renderMenu();
     updateMeta();
+    requestAnimationFrame(resetHorizontalScroll);
   }
 
   function applyTranslations() {
@@ -438,6 +439,12 @@
     if (ogDesc) ogDesc.setAttribute('content', data.description);
     if (twTitle) twTitle.setAttribute('content', data.title);
     if (twDesc) twDesc.setAttribute('content', data.description);
+  }
+
+  function resetHorizontalScroll() {
+    const scroller = document.scrollingElement || document.documentElement;
+    if (!scroller) return;
+    if (scroller.scrollLeft !== 0) scroller.scrollLeft = 0;
   }
 
   function optimizeImages() {
@@ -542,6 +549,12 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && drawer?.classList.contains('is-open')) close();
     });
+    const desktopMedia = window.matchMedia('(min-width: 768px)');
+    const closeOnDesktop = (event) => {
+      if (event.matches) close();
+    };
+    if (desktopMedia.addEventListener) desktopMedia.addEventListener('change', closeOnDesktop);
+    else desktopMedia.addListener(closeOnDesktop);
   }
 
   function setupHeaderCondense() {
